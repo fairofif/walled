@@ -23,7 +23,7 @@ export default function Login({ navigation }) {
             setErrors(validationErrors);
         } else {
             setErrors({});
-            navigation.replace('Dashboard'); // Proceed to the next screen
+            navigation.replace('Dashboard');
         }
     };
 
