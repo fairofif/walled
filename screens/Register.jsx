@@ -42,7 +42,27 @@ export default function Register({ navigation }) {
     }, []);
 
     const handleRegister = () => {
-        // Registration logic here
+        let validationErrors = {};
+
+        if (!email.includes('@')) {
+            validationErrors.email = 'Please enter a valid email address';
+        }
+        if (!avatarUri.includes('http')) {
+            validationErrors.avatarUri = 'Please enter a valid Url';
+        }
+        if (fullName.length == 0) {
+            validationErrors.fullName = 'Please fill a name';
+        }
+        if (password.length < 6) {
+            validationErrors.password = 'Password must be at least 6 characters long';
+        }
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+        } else {
+            setErrors({});
+            navigation.replace('Dashboard');
+        }
     };
 
     const handleLogin = () => {
