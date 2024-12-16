@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Text, SafeAreaView, View, StyleSheet, Image } from "react-native";
+import { Button, Text, SafeAreaView, View, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import CustomTextInput from '../components/CustomTextInput'
 import CustomButton from "../components/CustomButton";
 import QuestionButton from "../components/QuestionButton"
@@ -33,34 +33,40 @@ export default function Login({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Image style={styles.logo} source={require('../assets/logo.png')} />
-            <View style={styles.fieldContainer}>
-                <CustomTextInput
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={setEmail}
-                    secureTextEntry={false}
-                    error={errors.email}
-                />
-                <CustomTextInput
-                    placeholder="Password"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry
-                    error={errors.password}
-                />
-            </View>
-            <View style={styles.buttonGroupContainer}>
-                <CustomButton
-                    title='Login'
-                    onPress={handleLogin}
-                />
-                <QuestionButton
-                    text="Don't have account?"
-                    title="Register"
-                    onPress={handleRegister}
-                />
-            </View>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={styles.keyboardAvoidingView}
+            >
+                <ScrollView
+                    contentContainerStyle={styles.scrollContainer}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    <Image style={styles.logo} source={require("../assets/logo.png")} />
+                    <View style={styles.fieldContainer}>
+                        <CustomTextInput
+                            placeholder="Email"
+                            value={email}
+                            onChangeText={setEmail}
+                            error={errors.email}
+                        />
+                        <CustomTextInput
+                            placeholder="Password"
+                            value={password}
+                            onChangeText={setPassword}
+                            secureTextEntry
+                            error={errors.password}
+                        />
+                    </View>
+                    <View style={styles.buttonGroupContainer}>
+                        <CustomButton title="Login" onPress={handleLogin} />
+                        <QuestionButton
+                            text="Don't have account?"
+                            title="Register"
+                            onPress={handleRegister}
+                        />
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }
@@ -68,10 +74,17 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+    },
+    keyboardAvoidingView: {
+        flex: 1,
+    },
+    scrollContainer: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: 'space-around'
     },
     logo: {
-        marginTop: '15%',
+        // marginTop: '15%',
         width: '250',
         height: '125',
         resizeMode: 'contain'
@@ -81,14 +94,14 @@ const styles = StyleSheet.create({
         height: '20%',
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginTop: '40%'
+        // marginTop: '40%'
     },
     buttonGroupContainer: {
         width: '100%',
         height: '20%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '10%'
+        // marginTop: '10%'
     },
     questionContainer: {
         width: '92%',
