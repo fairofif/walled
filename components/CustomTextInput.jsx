@@ -37,7 +37,7 @@ const CustomTextInput = ({
 const styles = StyleSheet.create({
     container: {
         width: "94%",
-        height: "40%",
+        height: 60,
         backgroundColor: "#FAFBFD",
         borderRadius: 20,
         justifyContent: "center",

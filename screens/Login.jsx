@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Text, SafeAreaView, View, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Button, Text, SafeAreaView, View, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Keyboard } from "react-native";
 import CustomTextInput from '../components/CustomTextInput'
 import CustomButton from "../components/CustomButton";
 import QuestionButton from "../components/QuestionButton"
@@ -8,6 +8,22 @@ export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
+    const [showLogo, setShowLogo] = useState(true);
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
+            setShowLogo(false);
+        });
+        const keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", () => {
+            setShowLogo(true);
+        });
+
+        return () => {
+            // Clean up listeners
+            keyboardDidShowListener.remove();
+            keyboardDidHideListener.remove();
+        };
+    }, []);
 
     const handleLogin = () => {
         let validationErrors = {};
@@ -41,8 +57,10 @@ export default function Login({ navigation }) {
                     contentContainerStyle={styles.scrollContainer}
                     keyboardShouldPersistTaps="handled"
                 >
-                    <Image style={styles.logo} source={require("../assets/logo.png")} />
-                    <View style={styles.fieldContainer}>
+                    {showLogo && (
+                        <Image style={styles.logo} source={require("../assets/logo.png")} />
+                    )}
+                    <View style={showLogo ? styles.fieldContainer : styles.fieldContainerType}>
                         <CustomTextInput
                             placeholder="Email"
                             value={email}
@@ -95,6 +113,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         // marginTop: '40%'
+    },
+    fieldContainerType: {
+        width: '100%',
+        height: '30%',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginTop: '30%'
     },
     buttonGroupContainer: {
         width: '100%',
