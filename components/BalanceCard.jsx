@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import { useState } from "react";
 
-const BalanceCard = ({ balance }) => {
+const BalanceCard = ({ balance, onPressTopUp, onPressTransfer }) => {
     const [isHidden, setIsHidden] = useState(false);
 
     const toggleBalanceVisibility = () => {
@@ -38,10 +38,10 @@ const BalanceCard = ({ balance }) => {
                 </View>
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button}>
-                    <Image style={{height:'45%', width: '45%'}} source={require('../assets/icons/plus.png')}/>
+                <TouchableOpacity onPress={onPressTopUp} style={styles.button}>
+                    <Image  style={{height:'45%', width: '45%'}} source={require('../assets/icons/plus.png')}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity onPress={onPressTransfer} style={styles.button}>
                     <Image style={{height:'45%', width: '45%'}} source={require('../assets/icons/plane.png')}/>
                 </TouchableOpacity>
             </View>

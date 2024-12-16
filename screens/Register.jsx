@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-    Button,
     Text,
     SafeAreaView,
     View,
@@ -122,7 +121,10 @@ export default function Register({ navigation }) {
                             }}>
                             <View style={styles.centeredView}>
                                 <View style={styles.modalView}>
-                                    <Text style={styles.modalText}>Ini ceritanya terms and condition</Text>
+                                    <ScrollView>
+                                        <Text style={styles.modalText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</Text>
+                                    </ScrollView>
                                     <Pressable
                                         style={[styles.button, styles.buttonClose]}
                                         onPress={() => setModalVisible(!modalVisible)}>
@@ -132,9 +134,8 @@ export default function Register({ navigation }) {
                             </View>
                         </Modal>
                         <Pressable
-                            style={[styles.button, styles.buttonOpen]}
                             onPress={() => setModalVisible(true)}>
-                            <Text style={styles.textStyle}>Terms and Conditions</Text>
+                            <Text style={styles.textStyleOpen}>Terms and Conditions</Text>
                         </Pressable>
                     </SafeAreaView>
                         <CustomButton title="Register" onPress={handleRegister} />
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     modalView: {
-        marginTop: 300,
+        marginTop: 100,
         backgroundColor: 'white',
         borderRadius: 20,
         padding: 35,
@@ -169,13 +170,16 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 2,
+            height:  2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
     },
     textStyle: {
+        color: '#FAFBFD'
+    },
+    textStyleOpen: {
         color: '#19918F'
     },
     keyboardAvoidingView: {
@@ -209,4 +213,13 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    button: {
+        marginTop: 30,
+        backgroundColor: '#19918F',
+        width: 150,
+        height: 30,
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });

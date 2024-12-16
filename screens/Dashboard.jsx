@@ -52,13 +52,21 @@ export default function Dashboard({navigation}) {
     }
   ]
 
+  const navigateToTopUp = () => {
+    navigation.navigate('TopUp');
+  }
+
+  const navigateToTransfer = () => {
+    navigation.navigate('Transfer');
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <TopBar name='Pink Guy' kind='Personal Account' avaUri='https://i1.sndcdn.com/artworks-000162081203-ppxkn6-t500x500.jpg' />
       <View style={styles.balanceContainer}>
         <Greeter name='Pink Guy' time='Morning'/>
         <Account number='77218932'/>
-        <BalanceCard balance={10000000}/>
+        <BalanceCard balance={10000000} onPressTopUp={navigateToTopUp} onPressTransfer={navigateToTransfer}/>
       </View>
       <View style={styles.transactionContainer}>
         <View style={styles.transactionLabelContainer}>
