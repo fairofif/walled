@@ -10,6 +10,8 @@ import {
     Platform,
     ScrollView,
     Keyboard,
+    Modal,
+    Pressable
 } from "react-native";
 import CustomTextInput from "../components/CustomTextInput";
 import CustomButton from "../components/CustomButton";
@@ -22,6 +24,7 @@ export default function Register({ navigation }) {
     const [avatarUri, setAvatarUri] = useState("");
     const [errors, setErrors] = useState({});
     const [showLogo, setShowLogo] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -87,6 +90,33 @@ export default function Register({ navigation }) {
                         />
                     </View>
                     <View style={styles.buttonGroupContainer}>
+                    <SafeAreaView style={styles.modalInitialContainer}>
+                        <Text>I have read and agree to the </Text>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                                Alert.alert('Modal has been closed.');
+                                setModalVisible(!modalVisible);
+                            }}>
+                            <View style={styles.centeredView}>
+                                <View style={styles.modalView}>
+                                    <Text style={styles.modalText}>Ini ceritanya terms and condition</Text>
+                                    <Pressable
+                                        style={[styles.button, styles.buttonClose]}
+                                        onPress={() => setModalVisible(!modalVisible)}>
+                                        <Text style={styles.textStyle}>Oke bang ngerti!</Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                        </Modal>
+                        <Pressable
+                            style={[styles.button, styles.buttonOpen]}
+                            onPress={() => setModalVisible(true)}>
+                            <Text style={styles.textStyle}>Terms and Conditions</Text>
+                        </Pressable>
+                    </SafeAreaView>
                         <CustomButton title="Register" onPress={handleRegister} />
                         <QuestionButton
                             text="Have an account?"
@@ -103,6 +133,30 @@ export default function Register({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    modalInitialContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row'
+    },
+    modalView: {
+        marginTop: 300,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    textStyle: {
+        color: '#19918F'
     },
     keyboardAvoidingView: {
         flex: 1,
