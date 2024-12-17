@@ -3,7 +3,8 @@ import { useState } from "react";
 import RNPickerSelect from "react-native-picker-select";
 import BasicHeader from "../components/BasicHeader";
 import AmountCardField from "../components/AmountCardField";
-import { MaterialIcons } from "@expo/vector-icons"; // Import Material Icons
+import { MaterialIcons } from "@expo/vector-icons";
+import CustomButton from "../components/CustomButton";
 
 export default function TopUp() {
     const [valueOption, setValueOption] = useState('');
@@ -20,6 +21,7 @@ export default function TopUp() {
 
     return (
         <SafeAreaView style={styles.container}>
+            <BasicHeader headerName={"Top Up"} />
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.keyboardAvoidingView}
@@ -28,7 +30,7 @@ export default function TopUp() {
                     contentContainerStyle={styles.scrollContainer}
                     keyboardShouldPersistTaps="handled"
                 >
-                    <BasicHeader headerName={"Top Up"} />
+
                     <AmountCardField currency="IDR" keyboardType='numeric' placeholder='XXX.XXX.XXX' label='Amount'/>
 
                     <View style={styles.dropdownContainer}>
@@ -50,6 +52,12 @@ export default function TopUp() {
                     </View>
                     <AmountCardField placeholder='Write a note here' label='Notes'/>
                 </ScrollView>
+                <View style={styles.buttonContainer}>
+                    <CustomButton
+                        title='Top Up'
+                        onPress={() => {}}
+                    />
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
@@ -77,6 +85,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    buttonContainer: {
+        width: '100%',
+        alignItems: 'center'
+    }
 });
 
 const pickerSelectStyles = StyleSheet.create({

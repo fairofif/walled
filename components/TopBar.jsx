@@ -1,6 +1,6 @@
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const TopBar = ({avaUri, name, kind}) => {
+const TopBar = ({avaUri, name, kind, onPressLogout}) => {
   return (
       <View style={styles.container}>
         <View style={styles.topBar_ava}>
@@ -12,9 +12,9 @@ const TopBar = ({avaUri, name, kind}) => {
           <Text style={{fontSize: 25, fontWeight: 'condensedBold'}}>{name}</Text>
           <Text>{kind}</Text>
         </View>
-        <View style={styles.topBar_sun}>
+        <TouchableOpacity onPress={onPressLogout} style={styles.topBar_sun}>
           <Image style={styles.sun} source={require('../assets/icons/sun.png')} />
-        </View>
+        </TouchableOpacity>
       </View>
   );
 }

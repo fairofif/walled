@@ -60,9 +60,13 @@ export default function Dashboard({navigation}) {
     navigation.navigate('Transfer');
   }
 
+  const handleLogout = () => {
+    navigation.replace('Login');
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <TopBar name='Pink Guy' kind='Personal Account' avaUri='https://i1.sndcdn.com/artworks-000162081203-ppxkn6-t500x500.jpg' />
+      <TopBar name='Pink Guy' onPressLogout={handleLogout} kind='Personal Account' avaUri='https://i1.sndcdn.com/artworks-000162081203-ppxkn6-t500x500.jpg' />
       <View style={styles.balanceContainer}>
         <Greeter name='Pink Guy' time='Morning'/>
         <Account number='77218932'/>
