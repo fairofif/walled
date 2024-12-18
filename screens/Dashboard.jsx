@@ -1,56 +1,59 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, FlatList, SafeAreaView, StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native';
 import TopBar from '../components/TopBar';
 import Greeter from '../components/Greeter';
 import Account from '../components/Account';
 import BalanceCard from '../components/BalanceCard';
 import HistoryCard from '../components/HistoryCard';
-import BottomBar from '../components/BottomBar'
+import BottomBar from '../components/BottomBar';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { getMyTransaction, getUserAuth } from '../api/restApi';
 
-export default function Dashboard({navigation}) {
+export default function Dashboard({ navigation }) {
+  const { logout, user } = useAuth();
+  const [userData, setUserData] = useState({});
+  const [loading, setIsLoading] = useState(true);
+  const [transactions, setTransactions] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const dummyHistory = [
-    {
-      id: 1,
-      name: 'Rofif Fairuz Hawary',
-      kind: 'Transfer',
-      nominal: 4425000,
-      date: '08 December 2024',
-      avaUri: 'https://media.licdn.com/dms/image/v2/C5603AQF1lYuw42VOUg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1631358708319?e=2147483647&v=beta&t=Dc9R4rgCIJl0bu-v1gzG-lV6pRK-Ij73gjFcedEb6e4'
-    },
-    {
-      id: 2,
-      name: 'Entis Sutisna',
-      kind: 'Transfer',
-      nominal: 2100000,
-      date: '08 December 2024',
-      avaUri: 'https://cdn.antaranews.com/cache/1200x800/2011/04/20110409022242sule-sutisna.jpg'
-    },
-    {
-      id: 3,
-      name: 'Bank Syariah Indonesia',
-      kind: 'Top Up',
-      nominal: 230000,
-      date: '07 December 2024',
-      avaUri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_YMoBy-YuEjGhhAuKKqGT5Nq5sTqBBeouOA&s'
-    },
-    {
-      id: 4,
-      name: 'Bank Syariah Indonesia',
-      kind: 'Top Up',
-      nominal: 230000,
-      date: '06 December 2024',
-      avaUri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_YMoBy-YuEjGhhAuKKqGT5Nq5sTqBBeouOA&s'
-    },
-    {
-      id: 5,
-      name: 'Bank Syariah Indonesia',
-      kind: 'Top Up',
-      nominal: 230000,
-      date: '06 December 2024',
-      avaUri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_YMoBy-YuEjGhhAuKKqGT5Nq5sTqBBeouOA&s'
+  const getUser = async () => {
+    try {
+      const data = await getUserAuth(user.token); // Fetch user data
+      setUserData(data); // Set user data
+    } catch (e) {
+      Alert.alert('Failed to retrieve user data: ' + e.message + user.token);
     }
-  ]
+  };
+
+  const sortTransactionsByDateDesc = (transactions) => {
+    return transactions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  };
+
+  const getTransaction = async () => {
+    try {
+      const trans = await getMyTransaction(user.token);
+      setTransactions(sortTransactionsByDateDesc(trans));
+    } catch (e) {
+      Alert.alert('Failed to retrieve transaction datas: ' + e.message)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+    getTransaction();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      Alert.alert('Logged out');
+    } catch (e) {
+      Alert.alert('Logout Failed');
+    }
+  };
 
   const navigateToTopUp = () => {
     navigation.navigate('TopUp');
@@ -60,30 +63,63 @@ export default function Dashboard({navigation}) {
     navigation.navigate('Transfer');
   }
 
-  const handleLogout = () => {
-    navigation.replace('Login');
+  const getFrontName = (fullName) => {
+    if (typeof fullName !== 'string') {
+      return ''; // Return an empty string if the input is not a valid string
+    }
+
+    const nameParts = fullName.split(' '); // Split the full name into parts
+    return nameParts[0]; // Return the first part (front name)
+  };
+
+
+  if (loading) {
+    return (
+      <ActivityIndicator
+        size='large' color='#0000ff'
+      />
+    )
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <TopBar name='Pink Guy' onPressLogout={handleLogout} kind='Personal Account' avaUri='https://i1.sndcdn.com/artworks-000162081203-ppxkn6-t500x500.jpg' />
+      <TopBar
+        name={userData.full_name}
+        onPressLogout={handleLogout}
+        kind='Personal Account'
+        avaUri={userData.avatar_url}
+      />
       <View style={styles.balanceContainer}>
-        <Greeter name='Pink Guy' time='Morning'/>
-        <Account number='77218932'/>
-        <BalanceCard balance={10000000} onPressTopUp={navigateToTopUp} onPressTransfer={navigateToTransfer}/>
+        <Greeter name={getFrontName(userData.full_name)} time='Morning' />
+        <Account number={userData.account_no} />
+        <BalanceCard
+          balance={userData.balance}
+          onPressTopUp={navigateToTopUp}
+          onPressTransfer={navigateToTransfer}
+        />
       </View>
       <View style={styles.transactionContainer}>
         <View style={styles.transactionLabelContainer}>
           <Text style={styles.transactionLabel}>Transaction History</Text>
         </View>
         <FlatList
-          data={dummyHistory}
-          renderItem={({item}) => <HistoryCard
-            name={item.name}
-            kind={item.kind}
-            nominal={item.nominal}
-            avaUri={item.avaUri}
-            date={item.date}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => {
+                getUser()
+                getTransaction()
+              }}
+              colors={['#0000ff']}
+              progressBackgroundColor='#ffffff'
+            />
+          }
+          data={transactions}
+          renderItem={({ item }) => <HistoryCard
+            name={item.from_to}
+            kind={item.type}
+            nominal={item.amount}
+            date={item.created_at}
           />}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
@@ -107,7 +143,7 @@ const styles = StyleSheet.create({
   balanceContainer: {
     width: '100%',
     height: '35%',
-    alignItems:'center',
+    alignItems: 'center',
     justifyContent: 'space-between'
   },
   transactionContainer: {
@@ -126,5 +162,8 @@ const styles = StyleSheet.create({
   transactionLabel: {
     fontSize: 25,
     fontWeight: 600
+  },
+  scrollView: {
+    flex: 1
   }
 });

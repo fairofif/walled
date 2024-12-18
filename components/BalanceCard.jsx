@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     },
     balanceContainer: {
         width: '70%',
-        paddingLeft: 40,
+        paddingLeft: 20,
         paddingRight: 40,
         justifyContent: 'center',
     },
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
     },
     balance: {
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: '600',
     },
     eyeButtonContainer: {

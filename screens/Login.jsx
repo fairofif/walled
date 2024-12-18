@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Button, Text, SafeAreaView, View, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Keyboard } from "react-native";
+import { Button, Text, SafeAreaView, View, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Keyboard, Alert } from "react-native";
 import CustomTextInput from '../components/CustomTextInput'
 import CustomButton from "../components/CustomButton";
 import QuestionButton from "../components/QuestionButton"
+import { useAuth } from "../context/AuthContext";
+import { login } from "../api/restApi";
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [showLogo, setShowLogo] = useState(true);
+    const {login: setLoginState} = useAuth();
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -25,7 +28,7 @@ export default function Login({ navigation }) {
         };
     }, []);
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         let validationErrors = {};
 
         if (!email.includes('@')) {
@@ -39,7 +42,17 @@ export default function Login({ navigation }) {
             setErrors(validationErrors);
         } else {
             setErrors({});
-            navigation.replace('Dashboard');
+            try {
+                const userData = {
+                    email: email,
+                    password: password
+                }
+                const { token } = await login(userData)
+                setLoginState(token)
+                Alert.alert('Success')
+            } catch (e) {
+                Alert.alert('Failed')
+            }
         }
     };
 

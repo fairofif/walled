@@ -5,17 +5,29 @@ import Login from "../screens/Login"
 import Register from "../screens/Register";
 import TopUp from "../screens/TopUp";
 import Transfer from "../screens/Transfer";
+import { useAuth } from "../context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
+    const auth = useAuth();
+
     return (
         <Stack.Navigator initialRouteName='Login'>
-            <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
-            <Stack.Screen name="Register" component={Register} options={{headerShown: false}} />
-            <Stack.Screen name='Dashboard' component={Dashboard} options={{headerShown: false}} />
-            <Stack.Screen name='TopUp' component={TopUp} options={{headerShown: false}} />
-            <Stack.Screen name='Transfer' component={Transfer} options={{headerShown: false}} />
+            {auth.user ? (
+                <>
+                    <Stack.Screen name='Dashboard' component={Dashboard} options={{headerShown: false}} />
+                    <Stack.Screen name='TopUp' component={TopUp} options={{headerShown: false}} />
+                    <Stack.Screen name='Transfer' component={Transfer} options={{headerShown: false}} />
+                </>
+                ) : (
+                <>
+                    <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
+                    <Stack.Screen name="Register" component={Register} options={{headerShown: false}} />
+                </>
+            )}
+
+
         </Stack.Navigator>
     )
 }

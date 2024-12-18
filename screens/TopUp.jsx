@@ -1,23 +1,58 @@
-import { SafeAreaView, StyleSheet, View, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
+import { SafeAreaView, StyleSheet, View, KeyboardAvoidingView, ScrollView, Platform, Alert } from "react-native";
 import { useState } from "react";
 import RNPickerSelect from "react-native-picker-select";
 import BasicHeader from "../components/BasicHeader";
 import AmountCardField from "../components/AmountCardField";
 import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../components/CustomButton";
+import { makeTransaction } from "../api/restApi";
+import { useAuth } from "../context/AuthContext";
+import { CommonActions } from '@react-navigation/native';
 
-export default function TopUp() {
+export default function TopUp({navigation}) {
     const [valueOption, setValueOption] = useState('');
+    const [amount, setAmount] = useState(0);
+    const [notes, setNotes] = useState('');
+    const { user } = useAuth()
     const options = [
-        { label: "Item 1", value: "1" },
-        { label: "Item 2", value: "2" },
-        { label: "Item 3", value: "3" },
-        { label: "Item 4", value: "4" },
-        { label: "Item 5", value: "5" },
-        { label: "Item 6", value: "6" },
-        { label: "Item 7", value: "7" },
-        { label: "Item 8", value: "8" },
+        { label: "BSI", value: "BSI" },
+        { label: "BCA", value: "BCA" },
+        { label: "BNI", value: "BNI" },
+        { label: "Jago", value: "Jago" }
     ];
+
+
+
+    const handleTopUp = async () => {
+        const datas = {
+            type: 'c',
+            from_to: valueOption,
+            amount: amount,
+            description: notes
+        }
+        try {
+            const res = await makeTransaction(datas, user.token)
+            Alert.alert('Success')
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [{name: 'Dashboard'}]
+                })
+            )
+        } catch (e) {
+            console.log(user.token)
+            Alert.alert('Failed: ' + e.message + user.token)
+        }
+    }
+
+    const handleTextChange = (inputText) => {
+        const parsedInt = parseInt(inputText, 10);
+        if (!isNaN(parsedInt)) {
+            setAmount(parsedInt);
+        } else {
+            setAmount(0);
+        }
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -31,7 +66,9 @@ export default function TopUp() {
                     keyboardShouldPersistTaps="handled"
                 >
 
-                    <AmountCardField currency="IDR" keyboardType='numeric' placeholder='XXX.XXX.XXX' label='Amount'/>
+                    <AmountCardField currency="IDR" keyboardType='numeric' placeholder='XXX.XXX.XXX' label='Amount' onChangeText={(inputText) => {
+                        handleTextChange(inputText); // Update integer value
+                    }} />
 
                     <View style={styles.dropdownContainer}>
                         <RNPickerSelect
@@ -50,12 +87,12 @@ export default function TopUp() {
                             )}
                         />
                     </View>
-                    <AmountCardField placeholder='Write a note here' label='Notes'/>
+                    <AmountCardField placeholder='Write a note here' label='Notes' onChangeText={setNotes} />
                 </ScrollView>
                 <View style={styles.buttonContainer}>
                     <CustomButton
                         title='Top Up'
-                        onPress={() => {}}
+                        onPress={handleTopUp}
                     />
                 </View>
             </KeyboardAvoidingView>

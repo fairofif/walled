@@ -10,11 +10,13 @@ import {
     ScrollView,
     Keyboard,
     Modal,
-    Pressable
+    Pressable,
+    Alert
 } from "react-native";
 import CustomTextInput from "../components/CustomTextInput";
 import CustomButton from "../components/CustomButton";
 import QuestionButton from "../components/QuestionButton";
+import { register } from "../api/restApi";
 
 export default function Register({ navigation }) {
     const [email, setEmail] = useState("");
@@ -40,7 +42,7 @@ export default function Register({ navigation }) {
         };
     }, []);
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         let validationErrors = {};
 
         if (!email.includes('@')) {
@@ -59,8 +61,22 @@ export default function Register({ navigation }) {
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
         } else {
-            setErrors({});
-            navigation.replace('Dashboard');
+            try {
+                setErrors({});
+                const userData = {
+                    full_name: fullName,
+                    email: email,
+                    password: password,
+                    avatar_url: avatarUri,
+                    phone_number: "081122112211"
+                }
+                const newUser = await register(userData)
+                Alert.alert(newUser.full_name + ' Success registered')
+                navigation.replace('Login')
+            } catch (e) {
+                Alert.alert('Failed ' + e.message)
+            }
+
         }
     };
 

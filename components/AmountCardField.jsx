@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, TextInput } from "react-native";
 
-export default function AmountCardField({currency, label, placeholder, keyboardType='default'}) {
+export default function AmountCardField({currency, label, placeholder, keyboardType='default', onChangeText}) {
     return (
         <View style={styles.container}>
             <View style={styles.labelContainer}>
@@ -10,7 +10,7 @@ export default function AmountCardField({currency, label, placeholder, keyboardT
                 <View style={styles.currencyContainer}>
                     <Text style={styles.currency}>{currency}</Text>
                 </View>
-                <TextInput style={styles.input} placeholder={placeholder} keyboardType={keyboardType}/>
+                <TextInput style={styles.input} onChangeText={onChangeText} placeholder={placeholder} keyboardType={keyboardType}/>
             </View>
         </View>
     )
