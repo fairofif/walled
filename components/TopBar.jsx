@@ -1,21 +1,21 @@
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const TopBar = ({avaUri, name, kind, onPressLogout}) => {
+const TopBar = ({ avaUri, name, kind, onPressLogout }) => {
   return (
-      <View style={styles.container}>
-        <View style={styles.topBar_ava}>
-          <Image source={{uri: avaUri}}
-            style={styles.avaBorder}
-          />
-        </View>
-        <View style={styles.topBar_label}>
-          <Text style={{fontSize: 25, fontWeight: 'condensedBold'}}>{name}</Text>
-          <Text>{kind}</Text>
-        </View>
-        <TouchableOpacity onPress={onPressLogout} style={styles.topBar_sun}>
-          <Image style={styles.sun} source={require('../assets/icons/sun.png')} />
-        </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.topBar_ava}>
+        <Image source={{ uri: avaUri }}
+          style={styles.avaBorder}
+        />
       </View>
+      <View style={styles.topBar_label}>
+        <Text style={{ fontSize: 25, fontWeight: 'condensedBold' }}>{name}</Text>
+        <Text>{kind}</Text>
+      </View>
+      <TouchableOpacity onPress={onPressLogout} style={styles.topBar_sun}>
+        <Image style={styles.sun} source={require('../assets/icons/sun.png')} />
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   topBar_label: {
     width: '60%',
-    height:'100%',
+    height: '100%',
     justifyContent: 'center',
     paddingLeft: 10
   },

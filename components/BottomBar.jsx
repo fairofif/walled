@@ -2,9 +2,9 @@ import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 const BottomBar = () => {
   return (
-      <View style={styles.container}>
+    <View style={styles.container}>
 
-      </View>
+    </View>
   );
 }
 

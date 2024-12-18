@@ -1,14 +1,14 @@
 import { StyleSheet, View, Text, Image } from "react-native"
 
-const Greeter = ({time, name}) => {
+const Greeter = ({ time, name }) => {
     return (
-        <View style={{height:'38%', flexDirection: 'row'}}>
+        <View style={{ height: '38%', flexDirection: 'row' }}>
             <View style={styles.nameContainer}>
                 <Text style={styles.name}>Good {time}, {name}</Text>
                 <Text style={styles.desc}>Check all your incoming and outgoing transactions here</Text>
             </View>
             <View style={styles.sunContainer}>
-                <Image style={styles.sun} source={require('../assets/icons/happysun.png')}/>
+                <Image style={styles.sun} source={require('../assets/icons/happysun.png')} />
             </View>
         </View>
     )
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     sunContainer: {
-        width:'25%',
+        width: '25%',
         justifyContent: 'center'
     },
     sun: {

@@ -125,35 +125,35 @@ export default function Register({ navigation }) {
                         />
                     </View>
                     <View style={styles.buttonGroupContainer}>
-                    <SafeAreaView style={styles.modalInitialContainer}>
-                        <Text>I have read and agree to the </Text>
-                        <Modal
-                            animationType="slide"
-                            transparent={true}
-                            visible={modalVisible}
-                            onRequestClose={() => {
-                                Alert.alert('Modal has been closed.');
-                                setModalVisible(!modalVisible);
-                            }}>
-                            <View style={styles.centeredView}>
-                                <View style={styles.modalView}>
-                                    <ScrollView>
-                                        <Text style={styles.modalText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</Text>
-                                    </ScrollView>
-                                    <Pressable
-                                        style={[styles.button, styles.buttonClose]}
-                                        onPress={() => setModalVisible(!modalVisible)}>
-                                        <Text style={styles.textStyle}>Oke bang ngerti!</Text>
-                                    </Pressable>
+                        <SafeAreaView style={styles.modalInitialContainer}>
+                            <Text>I have read and agree to the </Text>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={modalVisible}
+                                onRequestClose={() => {
+                                    Alert.alert('Modal has been closed.');
+                                    setModalVisible(!modalVisible);
+                                }}>
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalView}>
+                                        <ScrollView>
+                                            <Text style={styles.modalText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</Text>
+                                        </ScrollView>
+                                        <Pressable
+                                            style={[styles.button, styles.buttonClose]}
+                                            onPress={() => setModalVisible(!modalVisible)}>
+                                            <Text style={styles.textStyle}>Oke bang ngerti!</Text>
+                                        </Pressable>
+                                    </View>
                                 </View>
-                            </View>
-                        </Modal>
-                        <Pressable
-                            onPress={() => setModalVisible(true)}>
-                            <Text style={styles.textStyleOpen}>Terms and Conditions</Text>
-                        </Pressable>
-                    </SafeAreaView>
+                            </Modal>
+                            <Pressable
+                                onPress={() => setModalVisible(true)}>
+                                <Text style={styles.textStyleOpen}>Terms and Conditions</Text>
+                            </Pressable>
+                        </SafeAreaView>
                         <CustomButton title="Register" onPress={handleRegister} />
                         <QuestionButton
                             text="Have an account?"
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height:  2,
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,

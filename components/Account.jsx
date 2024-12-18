@@ -1,6 +1,6 @@
 import { View, StyleSheet, Text } from "react-native";
 
-const Account = ({number}) => {
+const Account = ({ number }) => {
     return (
         <View style={styles.card}>
             <View style={styles.labelContainer}>

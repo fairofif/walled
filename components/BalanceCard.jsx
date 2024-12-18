@@ -18,7 +18,7 @@ const BalanceCard = ({ balance, onPressTopUp, onPressTransfer }) => {
                 <View>
                     <Text style={styles.label}>Balance</Text>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={styles.balance}>
                         {isHidden ? 'Rp. ***' : `Rp. ${(formatNominal(balance))}`}
                     </Text>
@@ -39,10 +39,10 @@ const BalanceCard = ({ balance, onPressTopUp, onPressTransfer }) => {
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={onPressTopUp} style={styles.button}>
-                    <Image  style={{height:'45%', width: '45%'}} source={require('../assets/icons/plus.png')}/>
+                    <Image style={{ height: '45%', width: '45%' }} source={require('../assets/icons/plus.png')} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onPressTransfer} style={styles.button}>
-                    <Image style={{height:'45%', width: '45%'}} source={require('../assets/icons/plane.png')}/>
+                    <Image style={{ height: '45%', width: '45%' }} source={require('../assets/icons/plane.png')} />
                 </TouchableOpacity>
             </View>
         </View>

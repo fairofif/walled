@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Text, SafeAreaView, View, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Keyboard, Alert } from "react-native";
+import { SafeAreaView, View, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Keyboard, Alert } from "react-native";
 import CustomTextInput from '../components/CustomTextInput'
 import CustomButton from "../components/CustomButton";
 import QuestionButton from "../components/QuestionButton"
@@ -11,7 +11,7 @@ export default function Login({ navigation }) {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [showLogo, setShowLogo] = useState(true);
-    const {login: setLoginState} = useAuth();
+    const { login: setLoginState } = useAuth();
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
         height: '20%',
         justifyContent: 'center',
         alignItems: 'center',
-        // marginTop: '10%'
     },
     questionContainer: {
         width: '92%',

@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, Alert, FlatList, SafeAreaView, StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native';
 import TopBar from '../components/TopBar';
 import Greeter from '../components/Greeter';
@@ -19,8 +18,8 @@ export default function Dashboard({ navigation }) {
 
   const getUser = async () => {
     try {
-      const data = await getUserAuth(user.token); // Fetch user data
-      setUserData(data); // Set user data
+      const data = await getUserAuth(user.token);
+      setUserData(data);
     } catch (e) {
       Alert.alert('Failed to retrieve user data: ' + e.message + user.token);
     }
@@ -65,11 +64,11 @@ export default function Dashboard({ navigation }) {
 
   const getFrontName = (fullName) => {
     if (typeof fullName !== 'string') {
-      return ''; // Return an empty string if the input is not a valid string
+      return '';
     }
 
-    const nameParts = fullName.split(' '); // Split the full name into parts
-    return nameParts[0]; // Return the first part (front name)
+    const nameParts = fullName.split(' ');
+    return nameParts[0];
   };
 
 

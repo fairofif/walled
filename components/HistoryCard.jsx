@@ -32,7 +32,7 @@ const HistoryCard = ({ avaUri, name, kind, date, nominal }) => {
         const seconds = String(date.getSeconds()).padStart(2, '0');
 
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-      };
+    };
 
     return (
         <TouchableOpacity style={styles.card}>

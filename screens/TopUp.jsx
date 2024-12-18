@@ -9,7 +9,7 @@ import { makeTransaction } from "../api/restApi";
 import { useAuth } from "../context/AuthContext";
 import { CommonActions } from '@react-navigation/native';
 
-export default function TopUp({navigation}) {
+export default function TopUp({ navigation }) {
     const [valueOption, setValueOption] = useState('');
     const [amount, setAmount] = useState(0);
     const [notes, setNotes] = useState('');
@@ -36,7 +36,7 @@ export default function TopUp({navigation}) {
             navigation.dispatch(
                 CommonActions.reset({
                     index: 0,
-                    routes: [{name: 'Dashboard'}]
+                    routes: [{ name: 'Dashboard' }]
                 })
             )
         } catch (e) {
@@ -137,7 +137,7 @@ const pickerSelectStyles = StyleSheet.create({
         borderColor: "gray",
         borderRadius: 4,
         color: "black",
-        paddingRight: 30, // to ensure the text is not overlapping with the dropdown icon
+        paddingRight: 30
     },
     inputAndroid: {
         fontSize: 16,
@@ -147,6 +147,6 @@ const pickerSelectStyles = StyleSheet.create({
         borderColor: "gray",
         borderRadius: 4,
         color: "black",
-        paddingRight: 30, // to ensure the text is not overlapping with the dropdown icon
+        paddingRight: 30
     },
 });

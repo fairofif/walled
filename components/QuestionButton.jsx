@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native"
 
-const QuestionButton = ({text, title, onPress}) => {
+const QuestionButton = ({ text, title, onPress }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{text}</Text>

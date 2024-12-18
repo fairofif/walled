@@ -20,7 +20,7 @@ export const login = async (userData) => {
     } catch (e) {
         throw new Error('Failed login: ' + e.message)
     }
- }
+}
 
 export const getUserAuth = async (token) => {
     try {
@@ -44,7 +44,7 @@ export const getMyTransaction = async (token) => {
         });
         return response.data.data
     } catch (e) {
-        throw new Error('Failed to fetch list transaction: '+ e.message);
+        throw new Error('Failed to fetch list transaction: ' + e.message);
     }
 }
 
@@ -57,6 +57,6 @@ export const makeTransaction = async (datas, token) => {
         });
         return response.data.data
     } catch (e) {
-        throw new Error('Failed make transaction: '+ e.message)
+        throw new Error('Failed make transaction: ' + e.message)
     }
 }

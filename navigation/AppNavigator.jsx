@@ -16,14 +16,14 @@ export default function AppNavigator() {
         <Stack.Navigator initialRouteName='Login'>
             {auth.user ? (
                 <>
-                    <Stack.Screen name='Dashboard' component={Dashboard} options={{headerShown: false}} />
-                    <Stack.Screen name='TopUp' component={TopUp} options={{headerShown: false}} />
-                    <Stack.Screen name='Transfer' component={Transfer} options={{headerShown: false}} />
+                    <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerShown: false }} />
+                    <Stack.Screen name='TopUp' component={TopUp} options={{ headerShown: false }} />
+                    <Stack.Screen name='Transfer' component={Transfer} options={{ headerShown: false }} />
                 </>
-                ) : (
+            ) : (
                 <>
-                    <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
-                    <Stack.Screen name="Register" component={Register} options={{headerShown: false}} />
+                    <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+                    <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
                 </>
             )}
 
