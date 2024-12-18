@@ -128,7 +128,6 @@ export default function Dashboard({ navigation }) {
           }}
         />
       </View>
-      <BottomBar />
     </SafeAreaView>
   );
 }
